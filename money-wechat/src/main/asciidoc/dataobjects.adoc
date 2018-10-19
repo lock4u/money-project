@@ -1,0 +1,21 @@
+= Cheatsheets
+
+[[Token]]
+== Token
+
+++++
+ Created by Lee on 2018/10/17.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[access_token]]`access_token`|`String`|-
+|[[errcode]]`errcode`|`String`|-
+|[[errmsg]]`errmsg`|`String`|-
+|[[expire_in]]`expire_in`|`String`|-
+|[[success]]`success`|`Boolean`|-
+|===
+

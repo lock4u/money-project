@@ -1,5 +1,5 @@
 *#
-/.vertx
+.vertx
 *.iml
 *.ipr
 *.iws

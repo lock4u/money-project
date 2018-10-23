@@ -1,4 +1,5 @@
 *#
+/.vertx
 *.iml
 *.ipr
 *.iws

@@ -4,8 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>money-admin</artifactId>
+    <artifactId>user-microservice</artifactId>
     <version>${revision}</version>
+
 
     <parent>
         <groupId>org.money.sales</groupId>
@@ -14,9 +15,8 @@
     </parent>
 
     <properties>
-        <main.verticle>org.money.sales.gateway.official.Starter</main.verticle>
+        <main.verticle>org.money.sales.gateway.Bootstrap</main.verticle>
     </properties>
-
 
     <dependencies>
 
@@ -59,8 +59,37 @@
 
         <dependency>
             <groupId>io.vertx</groupId>
+            <artifactId>vertx-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-rx-java2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-service-proxy</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
             <artifactId>vertx-mysql-postgresql-client</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+            <classifier>linux-x86_64</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-kqueue</artifactId>
+            <classifier>osx-x86_64</classifier>
+        </dependency>
+
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -86,20 +115,28 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <plugins>
 
+        <resources>
+            <resource>
+                <directory>src/main/generated</directory>
+            </resource>
+        </resources>
+
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-            </plugin>
         </plugins>
+
     </build>
 
 

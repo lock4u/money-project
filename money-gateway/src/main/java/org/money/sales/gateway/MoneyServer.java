@@ -41,7 +41,7 @@ public class MoneyServer extends AbstractVerticle {
         router.route().handler(LoggerHandler.create());
         router.route().handler(BodyHandler.create());
         router.route().handler(CookieHandler.create());
-        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx, "shopping.user.session")));
+        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx, "money.session")));
 
         Set<String> allowHeaders = new HashSet<>();
         allowHeaders.add("x-requested-with");
@@ -64,7 +64,6 @@ public class MoneyServer extends AbstractVerticle {
                         .allowedHeaders(allowHeaders));
 
 
-
         router.get("/wx").handler(rtx -> {
 
             String signature = rtx.request().getParam("signature");
@@ -72,8 +71,6 @@ public class MoneyServer extends AbstractVerticle {
             String nonce = rtx.request().getParam("nonce");
             String echostr = rtx.request().getParam("echostr");
             String token = rtx.request().getParam("signature");
-
-            log.info("signature {}", rtx.request().params());
 
             if (StringUtil.isNullOrEmpty(echostr)) {
                 rtx.response().end("满shi钱来");
@@ -90,14 +87,7 @@ public class MoneyServer extends AbstractVerticle {
                 .handler(this::login);
 
         router.get("/admin/user/info")
-                .handler(rtx -> {
-                    JsonObject js = new JsonObject();
-                    js.put("token", "admin");
-                    js.put("name", "管理员");
-                    js.put("roles", new JsonArray().add("admin"));
-                    js.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
-                    rtx.response().end(Result.complete(js).encode());
-                });
+                .handler(this::user);
 
 
         router.route().handler(StaticHandler.create());
@@ -113,6 +103,15 @@ public class MoneyServer extends AbstractVerticle {
                         startFuture.fail(http.cause());
                     }
                 });
+    }
+
+    private void user(RoutingContext rtx) {
+        JsonObject js = new JsonObject();
+        js.put("token", "admin");
+        js.put("name", "管理员");
+        js.put("roles", new JsonArray().add("admin"));
+        js.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        rtx.response().end(Result.complete(js).encode());
     }
 
 
@@ -137,8 +136,6 @@ public class MoneyServer extends AbstractVerticle {
                 .put("code", 20000)
                 .put("message", "OK")
                 .put("data", token);
-
-        rtx.response().putHeader("content-type", "application/json");
         rtx.response()
                 .end(result.encode());
     }

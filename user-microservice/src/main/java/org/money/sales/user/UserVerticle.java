@@ -21,6 +21,7 @@ public class UserVerticle extends AbstractVerticle {
 
         UserService userService = UserServiceImpl.instance(vertx, config());
 
+
         new ServiceBinder(vertx)
                 .setAddress(UserService.address)
                 .register(UserService.class, userService)

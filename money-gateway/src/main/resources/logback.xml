@@ -52,7 +52,7 @@
     </appender>
 
     <!-- 至多只能配置一个root -->
-    <root level="debug">
+    <root level="ALL">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>

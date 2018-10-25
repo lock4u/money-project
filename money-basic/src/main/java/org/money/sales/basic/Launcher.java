@@ -16,7 +16,7 @@ public class Launcher extends io.vertx.core.Launcher {
 
     @Override
     public void beforeStartingVertx(VertxOptions options) {
-        options.setPreferNativeTransport(true);
+        options.setPreferNativeTransport(false);
     }
 
 }

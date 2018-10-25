@@ -9,9 +9,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import org.money.sales.api.user.model.User;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 
 /**
  * Created by Lee on 2018/10/22.
@@ -29,8 +26,8 @@ public interface UserService {
     }
 
     @Fluent
-    UserService findByName(@Nonnull String name, Handler<AsyncResult<User>> handler);
+    UserService findByName(String name, Handler<AsyncResult<User>> handler);
 
     @Fluent
-    UserService verify(@Nonnull String name, @Nullable String password, Handler<AsyncResult<Void>> handler);
+    UserService verify(String name, String password, Handler<AsyncResult<Void>> handler);
 }

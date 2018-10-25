@@ -4,7 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.serviceproxy.ServiceBinder;
 import lombok.extern.slf4j.Slf4j;
-import org.money.sales.user.service.UserService;
+import org.money.sales.api.user.service.UserService;
 import org.money.sales.user.service.impl.UserServiceImpl;
 
 /**

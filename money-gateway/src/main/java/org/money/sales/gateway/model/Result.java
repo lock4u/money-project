@@ -1,18 +1,10 @@
 package org.money.sales.gateway.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import io.vertx.core.json.JsonObject;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * Created by Lee on 2018/9/29.
  */
-@Getter
-@ToString
-@EqualsAndHashCode
-@JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY)
 public class Result<T> extends JsonObject {
 
     private static final int OK = 20000;

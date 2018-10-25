@@ -12,10 +12,6 @@
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
-|[[access_token]]`access_token`|`String`|-
-|[[errcode]]`errcode`|`String`|-
-|[[errmsg]]`errmsg`|`String`|-
-|[[expire_in]]`expire_in`|`String`|-
 |[[success]]`success`|`Boolean`|-
 |===
 
@@ -31,8 +27,5 @@
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
-|[[id]]`id`|`String`|-
-|[[name]]`name`|`String`|-
-|[[password]]`password`|`String`|-
 |===
 

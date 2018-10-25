@@ -13,7 +13,9 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.serviceproxy.ServiceProxyBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.money.sales.api.user.service.UserService;
 import org.money.sales.gateway.model.Result;
 import org.money.sales.gateway.util.XML;
 
@@ -26,68 +28,26 @@ import java.util.Set;
  */
 
 @Slf4j
-public class MoneyServer extends AbstractVerticle {
+public class Gateway extends AbstractVerticle {
 
+
+    UserService us;
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {
 
 
+
+
         Router router = Router.router(getVertx());
 
 
-        router.route().handler(TimeoutHandler.create(2000, 767));
 
         router.route().handler(LoggerHandler.create());
-        router.route().handler(BodyHandler.create());
+        router.route().handler(TimeoutHandler.create(2000, 767));
         router.route().handler(CookieHandler.create());
         router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx, "money.session")));
-
-        Set<String> allowHeaders = new HashSet<>();
-        allowHeaders.add("x-requested-with");
-        allowHeaders.add("Access-Control-Allow-Origin");
-        allowHeaders.add("origin");
-        allowHeaders.add("Content-Type");
-        allowHeaders.add("accept");
-        allowHeaders.add("X-Token");
-
-
-        router.route("/admin/*")
-                .handler(CorsHandler.create("*")
-                        .allowedMethod(HttpMethod.GET)
-                        .allowedMethod(HttpMethod.POST)
-                        .allowedMethod(HttpMethod.PUT)
-                        .allowedMethod(HttpMethod.DELETE)
-                        .allowedMethod(HttpMethod.PATCH)
-                        .allowedMethod(HttpMethod.OPTIONS)
-//                        .allowCredentials(true)
-                        .allowedHeaders(allowHeaders));
-
-
-        router.get("/wx").handler(rtx -> {
-
-            String signature = rtx.request().getParam("signature");
-            String timestamp = rtx.request().getParam("timestamp");
-            String nonce = rtx.request().getParam("nonce");
-            String echostr = rtx.request().getParam("echostr");
-            String token = rtx.request().getParam("signature");
-
-            if (StringUtil.isNullOrEmpty(echostr)) {
-                rtx.response().end("满shi钱来");
-            } else
-                rtx.response().end(echostr);
-        });
-
-
-        router.route("/admin/*")
-                .produces("application/json");
-
-
-        router.post("/admin/user/login")
-                .handler(this::login);
-
-        router.get("/admin/user/info")
-                .handler(this::user);
+        router.route().handler(BodyHandler.create());
 
 
         router.route().handler(StaticHandler.create());
@@ -98,7 +58,7 @@ public class MoneyServer extends AbstractVerticle {
                 .listen(Integer.getInteger("port", 80), http -> {
                     if (http.succeeded()) {
                         startFuture.complete();
-                        log.info("HTTP server started on port {}", http.result().actualPort());
+                        log.info("HTTP server started on port {} {}", http.result().actualPort(),deploymentID());
                     } else {
                         startFuture.fail(http.cause());
                     }
@@ -128,16 +88,6 @@ public class MoneyServer extends AbstractVerticle {
     }
 
 
-    private void login(RoutingContext rtx) {
 
-        JsonObject token = new JsonObject();
-        token.put("token", "admin");
-        JsonObject result = new JsonObject()
-                .put("code", 20000)
-                .put("message", "OK")
-                .put("data", token);
-        rtx.response()
-                .end(result.encode());
-    }
 
 }

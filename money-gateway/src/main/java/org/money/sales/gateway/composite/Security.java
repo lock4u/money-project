@@ -4,7 +4,7 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.serviceproxy.ServiceProxyBuilder;
-import org.money.sales.user.service.UserService;
+import org.money.sales.api.user.service.UserService;
 
 /**
  * Created by Lee on 2018/10/24.

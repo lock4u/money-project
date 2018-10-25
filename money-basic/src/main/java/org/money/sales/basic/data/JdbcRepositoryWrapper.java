@@ -15,7 +15,19 @@ public class JdbcRepositoryWrapper {
     protected final AsyncSQLClient _SQL;
 
     public JdbcRepositoryWrapper(Vertx vertx, JsonObject config) {
-        this._SQL = PostgreSQLClient.createNonShared(vertx, config);
+
+        JsonObject js = new JsonObject();
+        js.put("host","localhost");
+        js.put("port",5432);
+        js.put("maxPoolSize",30);
+        js.put("username","vertx");
+        js.put("password","vertx");
+        js.put("database","money");
+        js.put("charset","UTF-8");
+        js.put("queryTimeout",10000);
+//        config.put("sslMode","");
+//        config.put("sslRootCert","");
+        this._SQL = PostgreSQLClient.createNonShared(vertx, js);
     }
 
 

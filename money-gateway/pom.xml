@@ -39,6 +39,12 @@
 
         <dependency>
             <groupId>org.money.sales</groupId>
+            <artifactId>money-admin</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.money.sales</groupId>
             <artifactId>user-microservice</artifactId>
             <version>${revision}</version>
         </dependency>

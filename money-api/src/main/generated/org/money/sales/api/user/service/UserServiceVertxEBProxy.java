@@ -32,6 +32,8 @@ import java.util.function.Function;
 import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.Vertx;
 import org.money.sales.api.user.model.User;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;

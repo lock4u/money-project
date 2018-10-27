@@ -1,5 +1,41 @@
 = Cheatsheets
 
+[[Model]]
+== Model
+
+++++
+ Created by Lee on 2018/10/25.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[create_time]]`create_time`|`Number (long)`|-
+|[[id]]`id`|`Number (Long)`|-
+|[[update_time]]`update_time`|`Number (long)`|-
+|===
+
+[[Role]]
+== Role
+
+++++
+ Created by Lee on 2018/10/25.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[create_time]]`create_time`|`Number (long)`|-
+|[[id]]`id`|`Number (Long)`|-
+|[[role]]`role`|`String`|-
+|[[uid]]`uid`|`Number (Long)`|-
+|[[update_time]]`update_time`|`Number (long)`|-
+|===
+
 [[Token]]
 == Token
 
@@ -12,6 +48,10 @@
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
+|[[access_token]]`access_token`|`String`|-
+|[[errcode]]`errcode`|`String`|-
+|[[errmsg]]`errmsg`|`String`|-
+|[[expire_in]]`expire_in`|`String`|-
 |[[success]]`success`|`Boolean`|-
 |===
 
@@ -27,5 +67,12 @@
 [frame="topbot"]
 |===
 ^|Name | Type ^| Description
+|[[create_time]]`create_time`|`Number (long)`|-
+|[[id]]`id`|`Number (Long)`|-
+|[[name]]`name`|`String`|-
+|[[password]]`password`|`String`|-
+|[[phone]]`phone`|`String`|-
+|[[salt]]`salt`|`String`|-
+|[[update_time]]`update_time`|`Number (long)`|-
 |===
 

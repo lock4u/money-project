@@ -132,6 +132,10 @@ public class UserServiceVertxProxyHandler extends ProxyHandler {
          });
           break;
         }
+        case "create": {
+          service.create((java.lang.String)json.getValue("name"), (java.lang.String)json.getValue("password"), createHandler(msg));
+          break;
+        }
         case "verify": {
           service.verify((java.lang.String)json.getValue("name"), (java.lang.String)json.getValue("password"), createHandler(msg));
           break;

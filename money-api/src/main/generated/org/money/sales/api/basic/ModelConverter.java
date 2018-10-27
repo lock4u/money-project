@@ -14,58 +14,34 @@
  * under the License.
  */
 
-package org.money.sales.api.user.model;
+package org.money.sales.api.basic;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.JsonArray;
 
 /**
- * Converter for {@link org.money.sales.api.user.model.User}.
+ * Converter for {@link org.money.sales.api.basic.Model}.
  *
- * NOTE: This class has been automatically generated from the {@link org.money.sales.api.user.model.User} original class using Vert.x codegen.
+ * NOTE: This class has been automatically generated from the {@link org.money.sales.api.basic.Model} original class using Vert.x codegen.
  */
-public class UserConverter {
+public class ModelConverter {
 
-  public static void fromJson(JsonObject json, User obj) {
+  public static void fromJson(JsonObject json, Model obj) {
     if (json.getValue("create_time") instanceof Number) {
       obj.setCreate_time(((Number)json.getValue("create_time")).longValue());
     }
     if (json.getValue("id") instanceof Number) {
       obj.setId(((Number)json.getValue("id")).longValue());
     }
-    if (json.getValue("name") instanceof String) {
-      obj.setName((String)json.getValue("name"));
-    }
-    if (json.getValue("password") instanceof String) {
-      obj.setPassword((String)json.getValue("password"));
-    }
-    if (json.getValue("phone") instanceof String) {
-      obj.setPhone((String)json.getValue("phone"));
-    }
-    if (json.getValue("salt") instanceof String) {
-      obj.setSalt((String)json.getValue("salt"));
-    }
     if (json.getValue("update_time") instanceof Number) {
       obj.setUpdate_time(((Number)json.getValue("update_time")).longValue());
     }
   }
 
-  public static void toJson(User obj, JsonObject json) {
+  public static void toJson(Model obj, JsonObject json) {
     json.put("create_time", obj.getCreate_time());
     if (obj.getId() != null) {
       json.put("id", obj.getId());
-    }
-    if (obj.getName() != null) {
-      json.put("name", obj.getName());
-    }
-    if (obj.getPassword() != null) {
-      json.put("password", obj.getPassword());
-    }
-    if (obj.getPhone() != null) {
-      json.put("phone", obj.getPhone());
-    }
-    if (obj.getSalt() != null) {
-      json.put("salt", obj.getSalt());
     }
     json.put("update_time", obj.getUpdate_time());
   }

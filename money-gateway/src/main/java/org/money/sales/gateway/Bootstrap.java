@@ -14,7 +14,7 @@ public class Bootstrap extends AbstractVerticle {
     public void start(Future<Void> startFuture) throws Exception {
 
 
-        vertx.rxDeployVerticle(UserVerticle.class.getName(), new DeploymentOptions().setInstances(2))
+        vertx.rxDeployVerticle(UserVerticle.class.getName(), new DeploymentOptions().setWorker(true).setWorkerPoolName("USER-"))
                 .flatMap(s -> vertx.rxDeployVerticle(Gateway.class.getName(), new DeploymentOptions().setInstances(2)))
                 .flatMap(s -> vertx.rxDeployVerticle(Admin.class.getName(), new DeploymentOptions().setInstances(2)))
                 .toCompletable()

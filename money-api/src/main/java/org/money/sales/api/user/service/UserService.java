@@ -29,5 +29,8 @@ public interface UserService {
     UserService findByName(String name, Handler<AsyncResult<User>> handler);
 
     @Fluent
+    UserService create(String name, String password, Handler<AsyncResult<Void>> handler);
+
+    @Fluent
     UserService verify(String name, String password, Handler<AsyncResult<Void>> handler);
 }

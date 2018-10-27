@@ -67,7 +67,7 @@
       border-radius: 0;
     }
 
-    // Add border top radius for first one
+    // Add border top radius for first single
     &:first-child {
       .list-group-item:first-child {
         border-top: 0;
@@ -75,7 +75,7 @@
       }
     }
 
-    // Add border bottom radius for last one
+    // Add border bottom radius for last single
     &:last-child {
       .list-group-item:last-child {
         border-bottom: 0;
@@ -117,7 +117,7 @@
       padding-right: @panel-body-padding;
     }
   }
-  // Add border top radius for first one
+  // Add border top radius for first single
   > .table:first-child,
   > .table-responsive:first-child > .table:first-child {
     .border-top-radius((@panel-border-radius - 1));
@@ -139,7 +139,7 @@
       }
     }
   }
-  // Add border bottom radius for last one
+  // Add border bottom radius for last single
   > .table:last-child,
   > .table-responsive:last-child > .table:last-child {
     .border-bottom-radius((@panel-border-radius - 1));

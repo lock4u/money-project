@@ -3,19 +3,23 @@ package org.money.sales.api.user.model;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
 import lombok.Data;
-
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import org.money.sales.api.basic.Model;
 
 /**
  * Created by Lee on 2018/10/17.
  */
-@DataObject(generateConverter = true)
+@EqualsAndHashCode(callSuper = true)
+@DataObject(inheritConverter = true, generateConverter = true)
 @Data
-public class User implements Serializable {
+public class User extends Model {
 
     private String name;
 
-    private String id;
+    private String phone;
+
+    private String salt;
 
     private String password;
 
@@ -33,8 +37,8 @@ public class User implements Serializable {
         return json;
     }
 
-    public boolean verify(String password) {
-        return true;
+    public boolean verify(@NonNull String password) {
+        return password.equals(this.password);
     }
 
 

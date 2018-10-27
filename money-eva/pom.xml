@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>money-gateway</artifactId>
+    <artifactId>money-eva</artifactId>
     <version>${revision}</version>
 
 
@@ -21,15 +21,11 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.money.sales</groupId>
-            <artifactId>token-microservice</artifactId>
+            <artifactId>money-basic</artifactId>
             <version>${revision}</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.money.sales</groupId>
@@ -38,15 +34,21 @@
         </dependency>
 
         <dependency>
-            <groupId>org.money.sales</groupId>
-            <artifactId>money-admin</artifactId>
-            <version>${revision}</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.sales</groupId>
-            <artifactId>user-microservice</artifactId>
-            <version>${revision}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
 
         <dependency>
@@ -97,20 +99,26 @@
 
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-mysql-postgresql-client</artifactId>
+            <artifactId>vertx-jdbc-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.5</version>
+        </dependency>
 
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-epoll</artifactId>
+            <classifier>linux-x86_64</classifier>
         </dependency>
 
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-kqueue</artifactId>
+            <classifier>osx-x86_64</classifier>
         </dependency>
-
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -121,6 +129,12 @@
             <groupId>io.vertx</groupId>
             <artifactId>vertx-codegen</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-codetrans</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -136,6 +150,7 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

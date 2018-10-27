@@ -6,6 +6,7 @@ import io.vertx.core.Future;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonObject;
 import io.vertx.reactivex.core.AbstractVerticle;
 import io.vertx.reactivex.ext.web.Router;
 import io.vertx.reactivex.ext.web.RoutingContext;
@@ -32,6 +33,7 @@ public class Admin extends AbstractVerticle {
         us = UserService.proxy(vertx, new DeliveryOptions());
 
         Router router = Router.router(vertx);
+        router.route().failureHandler(ErrorHandler.create(true));
 
 
         router.route().handler(LoggerHandler.create());
@@ -74,14 +76,18 @@ public class Admin extends AbstractVerticle {
 
         router.route("/admin/user/login")
                 .handler(this::login);
+
+        router.get("/admin/user")
+                .handler(this::user);
 //
 //        router.route("/admin/user/info")
 //                .handler(this::user);
 
 
+        router.route().handler(FaviconHandler.create());
+
         router.route().handler(StaticHandler.create());
 
-        router.route().handler(ErrorHandler.create(true));
 
 
         vertx.createHttpServer()
@@ -93,7 +99,17 @@ public class Admin extends AbstractVerticle {
 
     private void login(RoutingContext rtx) {
 
-        us.rxFindByName(rtx.request().getParam("name")).toMaybe()
+        JsonObject body = rtx.getBodyAsJson();
+        us.rxVerify(body.getString("name"), body.getString("password"))
+                .subscribe(() -> out(rtx, null), rtx::fail);
+
+
+    }
+
+    private void user(RoutingContext rtx) {
+
+        us.rxFindByName(rtx.request().getParam("name"))
+
                 .subscribe(user -> out(rtx, user), rtx::fail);
 
 

@@ -9,6 +9,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
 
+
     <properties>
 
         <revision>1.0.0</revision>
@@ -19,6 +20,7 @@
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
         <project.encoding>utf-8</project.encoding>
         <vertx.version>3.5.4</vertx.version>
+        <jackson.version>2.9.6</jackson.version>
         <junit-jupiter.version>5.2.0</junit-jupiter.version>
         <junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
         <junit-platform-launcher.version>1.2.0</junit-platform-launcher.version>
@@ -33,6 +35,7 @@
         <module>money-api</module>
         <module>token-microservice</module>
         <module>user-microservice</module>
+        <module>money-eva</module>
     </modules>
 
     <dependencyManagement>
@@ -46,11 +49,16 @@
                 <scope>import</scope>
             </dependency>
 
-
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-xml</artifactId>
-                <version>2.9.4</version>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
 
             <dependency>
@@ -85,55 +93,6 @@
 
 
             <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-web</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-web-client</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-config</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-service-proxy</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-rx-java2</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-reactive-streams</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-core</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.vertx</groupId>
-                <artifactId>vertx-mysql-postgresql-client</artifactId>
-                <version>${vertx.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
                 <version>2.0.1</version>
@@ -145,7 +104,7 @@
                 <version>${vertx.version}</version>
                 <scope>provided</scope>
             </dependency>
-
+            
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-junit5</artifactId>

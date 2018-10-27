@@ -55,7 +55,7 @@ public class Gateway extends AbstractVerticle {
 
         vertx.createHttpServer()
                 .requestHandler(router::accept)
-                .listen(Integer.getInteger("port", 80), http -> {
+                .listen(Integer.getInteger("port", 8888), http -> {
                     if (http.succeeded()) {
                         startFuture.complete();
                         log.info("HTTP server started on port {} {}", http.result().actualPort(),deploymentID());

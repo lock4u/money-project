@@ -16,100 +16,98 @@
 
 package org.money.sales.api.reactivex.user.service;
 
-import io.reactivex.Completable;
+import java.util.Map;
+import io.reactivex.Observable;
+import io.reactivex.Flowable;
 import io.reactivex.Single;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import io.vertx.core.eventbus.DeliveryOptions;
+import org.money.sales.api.user.model.Customer;
+import io.vertx.reactivex.core.Vertx;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import io.vertx.core.eventbus.DeliveryOptions;
-import io.vertx.reactivex.core.Vertx;
-import lombok.extern.slf4j.Slf4j;
-import org.money.sales.api.user.model.User;
 
 /**
  * Created by Lee on 2018/10/22.
- * <p>
+ *
  * <p/>
  * NOTE: This class has been automatically generated from the {@link org.money.sales.api.user.service.UserService original} non RX-ified interface using Vert.x codegen.
  */
 
 @io.vertx.lang.reactivex.RxGen(org.money.sales.api.user.service.UserService.class)
-@Slf4j
 public class UserService {
 
-    @Override
-    public String toString() {
-        return delegate.toString();
-    }
+  @Override
+  public String toString() {
+    return delegate.toString();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserService that = (UserService) o;
-        return delegate.equals(that.delegate);
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UserService that = (UserService) o;
+    return delegate.equals(that.delegate);
+  }
+  
+  @Override
+  public int hashCode() {
+    return delegate.hashCode();
+  }
 
-    @Override
-    public int hashCode() {
-        return delegate.hashCode();
-    }
+  public static final io.vertx.lang.reactivex.TypeArg<UserService> __TYPE_ARG = new io.vertx.lang.reactivex.TypeArg<>(
+    obj -> new UserService((org.money.sales.api.user.service.UserService) obj),
+    UserService::getDelegate
+  );
 
-    public static final io.vertx.lang.reactivex.TypeArg<UserService> __TYPE_ARG = new io.vertx.lang.reactivex.TypeArg<>(
-            obj -> new UserService((org.money.sales.api.user.service.UserService) obj),
-            UserService::getDelegate
-    );
+  private final org.money.sales.api.user.service.UserService delegate;
+  
+  public UserService(org.money.sales.api.user.service.UserService delegate) {
+    this.delegate = delegate;
+  }
 
-    private final org.money.sales.api.user.service.UserService delegate;
+  public org.money.sales.api.user.service.UserService getDelegate() {
+    return delegate;
+  }
 
-    public UserService(org.money.sales.api.user.service.UserService delegate) {
-        this.delegate = delegate;
-    }
+  public static UserService proxy(Vertx vertx, DeliveryOptions options) { 
+    UserService ret = UserService.newInstance(org.money.sales.api.user.service.UserService.proxy(vertx.getDelegate(), options));
+    return ret;
+  }
 
-    public org.money.sales.api.user.service.UserService getDelegate() {
-        return delegate;
-    }
+  public void findByName(String name, Handler<AsyncResult<Customer>> handler) { 
+    delegate.findByName(name, handler);
+  }
 
-    public static UserService proxy(Vertx vertx, DeliveryOptions options) {
-        UserService ret = UserService.newInstance(org.money.sales.api.user.service.UserService.proxy(vertx.getDelegate(), options));
-        return ret;
-    }
+  public Single<Customer> rxFindByName(String name) { 
+    return new io.vertx.reactivex.core.impl.AsyncResultSingle<Customer>(handler -> {
+      findByName(name, handler);
+    });
+  }
 
-    public UserService findByName(String name, Handler<AsyncResult<User>> handler) {
-        delegate.findByName(name, handler);
-        return this;
-    }
+  public void create(String name, String password, String phone, Handler<AsyncResult<Void>> handler) { 
+    delegate.create(name, password, phone, handler);
+  }
 
-    public Single<User> rxFindByName(String name) {
+  public Completable rxCreate(String name, String password, String phone) { 
+    return new io.vertx.reactivex.core.impl.AsyncResultCompletable(handler -> {
+      create(name, password, phone, handler);
+    });
+  }
 
-        return new io.vertx.reactivex.core.impl.AsyncResultSingle<User>(handler -> {
-            findByName(name, handler);
-        });
-    }
+  public void verify(String name, String password, Handler<AsyncResult<Void>> handler) { 
+    delegate.verify(name, password, handler);
+  }
 
-    public UserService create(String name, String password, Handler<AsyncResult<Void>> handler) {
-        delegate.create(name, password, handler);
-        return this;
-    }
-
-    public Completable rxCreate(String name, String password) {
-        return new io.vertx.reactivex.core.impl.AsyncResultCompletable(handler -> {
-            create(name, password, handler);
-        });
-    }
-
-    public UserService verify(String name, String password, Handler<AsyncResult<Void>> handler) {
-        delegate.verify(name, password, handler);
-        return this;
-    }
-
-    public Completable rxVerify(String name, String password) {
-        return new io.vertx.reactivex.core.impl.AsyncResultCompletable(handler -> {
-            verify(name, password, handler);
-        });
-    }
+  public Completable rxVerify(String name, String password) { 
+    return new io.vertx.reactivex.core.impl.AsyncResultCompletable(handler -> {
+      verify(name, password, handler);
+    });
+  }
 
 
-    public static UserService newInstance(org.money.sales.api.user.service.UserService arg) {
-        return arg != null ? new UserService(arg) : null;
-    }
+  public static  UserService newInstance(org.money.sales.api.user.service.UserService arg) {
+    return arg != null ? new UserService(arg) : null;
+  }
 }

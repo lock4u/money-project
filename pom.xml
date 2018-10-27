@@ -12,7 +12,7 @@
 
     <properties>
 
-        <revision>1.0.0</revision>
+        <revision>1.0.1</revision>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
@@ -30,12 +30,13 @@
 
     <modules>
         <module>money-gateway</module>
-        <module>money-admin</module>
+        <module>money-console</module>
         <module>money-basic</module>
         <module>money-api</module>
         <module>token-microservice</module>
-        <module>user-microservice</module>
         <module>money-eva</module>
+        <module>money-bootstrap</module>
+        <module>money-admin</module>
     </modules>
 
     <dependencyManagement>
@@ -53,6 +54,19 @@
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-xml</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>23.0</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>6.0.5</version>
             </dependency>
 
             <dependency>
@@ -91,12 +105,12 @@
                 <version>1.7.25</version>
             </dependency>
 
-
             <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>2.0.1</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.7</version>
             </dependency>
+
 
             <dependency>
                 <groupId>io.vertx</groupId>

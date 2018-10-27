@@ -1,13 +1,12 @@
 package org.money.sales.api.user.service;
 
-import io.vertx.codegen.annotations.Fluent;
 import io.vertx.codegen.annotations.ProxyGen;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
-import org.money.sales.api.user.model.User;
+import org.money.sales.api.user.model.Customer;
 
 
 /**
@@ -25,12 +24,9 @@ public interface UserService {
         return new UserServiceVertxEBProxy(vertx, address, options);
     }
 
-    @Fluent
-    UserService findByName(String name, Handler<AsyncResult<User>> handler);
+    void findByName(String name, Handler<AsyncResult<Customer>> handler);
 
-    @Fluent
-    UserService create(String name, String password, Handler<AsyncResult<Void>> handler);
+    void create(String name, String password, String phone, Handler<AsyncResult<Void>> handler);
 
-    @Fluent
-    UserService verify(String name, String password, Handler<AsyncResult<Void>> handler);
+    void verify(String name, String password, Handler<AsyncResult<Void>> handler);
 }

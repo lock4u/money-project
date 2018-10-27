@@ -14,9 +14,9 @@
 * under the License.
 */
 
-package org.money.sales.api.user.service;
+package org.money.sales.api.eva.service;
 
-import org.money.sales.api.user.service.UserService;
+import org.money.sales.api.eva.service.Evaluate;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.Future;
@@ -32,30 +32,27 @@ import java.util.function.Function;
 import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
-import io.vertx.core.eventbus.DeliveryOptions;
-import org.money.sales.api.user.model.Customer;
-import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import org.money.sales.api.user.service.UserService;
 
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
 */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class UserServiceVertxEBProxy implements UserService {
+public class EvaluateVertxEBProxy implements Evaluate {
 
   private Vertx _vertx;
   private String _address;
   private DeliveryOptions _options;
   private boolean closed;
 
-  public UserServiceVertxEBProxy(Vertx vertx, String address) {
+  public EvaluateVertxEBProxy(Vertx vertx, String address) {
     this(vertx, address, null);
   }
 
-  public UserServiceVertxEBProxy(Vertx vertx, String address, DeliveryOptions options) {
+  public EvaluateVertxEBProxy(Vertx vertx, String address, DeliveryOptions options) {
     this._vertx = vertx;
     this._address = address;
     this._options = options;
@@ -66,63 +63,34 @@ public class UserServiceVertxEBProxy implements UserService {
   }
 
   @Override
-  public void findByName(String name, Handler<AsyncResult<Customer>> handler) {
+  public void eva(JsonObject js, Handler<AsyncResult<JsonObject>> handler) {
     if (closed) {
     handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
       return;
     }
     JsonObject _json = new JsonObject();
-    _json.put("name", name);
+    _json.put("js", js);
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
-    _deliveryOptions.addHeader("action", "findByName");
+    _deliveryOptions.addHeader("action", "eva");
     _vertx.eventBus().<JsonObject>send(_address, _json, _deliveryOptions, res -> {
       if (res.failed()) {
         handler.handle(Future.failedFuture(res.cause()));
       } else {
-        handler.handle(Future.succeededFuture(res.result().body() == null ? null : new Customer(res.result().body())));
-                      }
-    });
-  }
-
-  @Override
-  public void create(String name, String password, String phone, Handler<AsyncResult<Void>> handler) {
-    if (closed) {
-    handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return;
-    }
-    JsonObject _json = new JsonObject();
-    _json.put("name", name);
-    _json.put("password", password);
-    _json.put("phone", phone);
-    DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
-    _deliveryOptions.addHeader("action", "create");
-    _vertx.eventBus().<Void>send(_address, _json, _deliveryOptions, res -> {
-      if (res.failed()) {
-        handler.handle(Future.failedFuture(res.cause()));
-      } else {
         handler.handle(Future.succeededFuture(res.result().body()));
       }
     });
   }
 
   @Override
-  public void verify(String name, String password, Handler<AsyncResult<Void>> handler) {
+  public void close() {
     if (closed) {
-    handler.handle(Future.failedFuture(new IllegalStateException("Proxy is closed")));
-      return;
-    }
-    JsonObject _json = new JsonObject();
-    _json.put("name", name);
-    _json.put("password", password);
+    throw new IllegalStateException("Proxy is closed");
+  }
+    closed = true;
+  JsonObject _json = new JsonObject();
     DeliveryOptions _deliveryOptions = (_options != null) ? new DeliveryOptions(_options) : new DeliveryOptions();
-    _deliveryOptions.addHeader("action", "verify");
-    _vertx.eventBus().<Void>send(_address, _json, _deliveryOptions, res -> {
-      if (res.failed()) {
-        handler.handle(Future.failedFuture(res.cause()));
-      } else {
-        handler.handle(Future.succeededFuture(res.result().body()));
-      }
-    });
+    _deliveryOptions.addHeader("action", "close");
+    _vertx.eventBus().send(_address, _json, _deliveryOptions);
   }
 
 

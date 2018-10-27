@@ -14,9 +14,6 @@
         <version>${revision}</version>
     </parent>
 
-    <properties>
-        <main.verticle>org.money.sales.gateway.Bootstrap</main.verticle>
-    </properties>
 
     <dependencies>
 
@@ -37,17 +34,6 @@
             <version>${revision}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.money.sales</groupId>
-            <artifactId>money-admin</artifactId>
-            <version>${revision}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.money.sales</groupId>
-            <artifactId>user-microservice</artifactId>
-            <version>${revision}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -56,33 +42,13 @@
         </dependency>
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-config</artifactId>
         </dependency>
 
         <dependency>
@@ -95,11 +61,6 @@
             <artifactId>vertx-service-proxy</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-mysql-postgresql-client</artifactId>
-        </dependency>
-
 
         <dependency>
             <groupId>io.netty</groupId>
@@ -110,7 +71,6 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-transport-native-kqueue</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -136,24 +96,8 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
+
     </dependencies>
-
-    <build>
-
-        <resources>
-            <resource>
-                <directory>src/main/generated</directory>
-            </resource>
-        </resources>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-            </plugin>
-        </plugins>
-
-    </build>
 
 
 </project>

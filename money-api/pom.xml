@@ -13,10 +13,6 @@
         <version>${revision}</version>
     </parent>
 
-    <properties>
-        <main.verticle>org.money.sales.gateway.official.Starter</main.verticle>
-    </properties>
-
 
     <dependencies>
 
@@ -29,13 +25,11 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-rx-java2</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -46,12 +40,6 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-service-proxy</artifactId>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
         </dependency>
 
         <dependency>
@@ -62,18 +50,16 @@
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-codegen</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-codetrans</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/generated</directory>
-            </resource>
-        </resources>
-    </build>
 
 
 </project>

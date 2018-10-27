@@ -1,5 +1,25 @@
 = Cheatsheets
 
+[[Customer]]
+== Customer
+
+++++
+ Created by Lee on 2018/10/17.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[create_time]]`create_time`|`Number (long)`|-
+|[[id]]`id`|`Number (Long)`|-
+|[[marriage]]`marriage`|`link:enums.html#Marriage[Marriage]`|-
+|[[name]]`name`|`String`|-
+|[[phone]]`phone`|`String`|-
+|[[update_time]]`update_time`|`Number (long)`|-
+|===
+
 [[Model]]
 == Model
 
@@ -53,26 +73,5 @@
 |[[errmsg]]`errmsg`|`String`|-
 |[[expire_in]]`expire_in`|`String`|-
 |[[success]]`success`|`Boolean`|-
-|===
-
-[[User]]
-== User
-
-++++
- Created by Lee on 2018/10/17.
-++++
-'''
-
-[cols=">25%,^25%,50%"]
-[frame="topbot"]
-|===
-^|Name | Type ^| Description
-|[[create_time]]`create_time`|`Number (long)`|-
-|[[id]]`id`|`Number (Long)`|-
-|[[name]]`name`|`String`|-
-|[[password]]`password`|`String`|-
-|[[phone]]`phone`|`String`|-
-|[[salt]]`salt`|`String`|-
-|[[update_time]]`update_time`|`Number (long)`|-
 |===
 

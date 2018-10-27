@@ -14,9 +14,9 @@
 * under the License.
 */
 
-package org.money.sales.api.user.service;
+package org.money.sales.api.eva.service;
 
-import org.money.sales.api.user.service.UserService;
+import org.money.sales.api.eva.service.Evaluate;
 import io.vertx.core.Vertx;
 import io.vertx.core.Handler;
 import io.vertx.core.AsyncResult;
@@ -39,37 +39,34 @@ import io.vertx.serviceproxy.ProxyHelper;
 import io.vertx.serviceproxy.ProxyHandler;
 import io.vertx.serviceproxy.ServiceException;
 import io.vertx.serviceproxy.ServiceExceptionMessageCodec;
-import io.vertx.core.eventbus.DeliveryOptions;
-import org.money.sales.api.user.model.Customer;
-import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import org.money.sales.api.user.service.UserService;
 
 /*
   Generated Proxy code - DO NOT EDIT
   @author Roger the Robot
 */
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class UserServiceVertxProxyHandler extends ProxyHandler {
+public class EvaluateVertxProxyHandler extends ProxyHandler {
 
   public static final long DEFAULT_CONNECTION_TIMEOUT = 5 * 60; // 5 minutes 
 
   private final Vertx vertx;
-  private final UserService service;
+  private final Evaluate service;
   private final long timerID;
   private long lastAccessed;
   private final long timeoutSeconds;
 
-  public UserServiceVertxProxyHandler(Vertx vertx, UserService service) {
+  public EvaluateVertxProxyHandler(Vertx vertx, Evaluate service) {
     this(vertx, service, DEFAULT_CONNECTION_TIMEOUT);
   }
 
-  public UserServiceVertxProxyHandler(Vertx vertx, UserService service, long timeoutInSecond) {
+  public EvaluateVertxProxyHandler(Vertx vertx, Evaluate service, long timeoutInSecond) {
     this(vertx, service, true, timeoutInSecond);
   }
 
-  public UserServiceVertxProxyHandler(Vertx vertx, UserService service, boolean topLevel, long timeoutSeconds) {
+  public EvaluateVertxProxyHandler(Vertx vertx, Evaluate service, boolean topLevel, long timeoutSeconds) {
     this.vertx = vertx;
     this.service = service;
     this.timeoutSeconds = timeoutSeconds;
@@ -92,6 +89,7 @@ public class UserServiceVertxProxyHandler extends ProxyHandler {
   private void checkTimedOut(long id) {
     long now = System.nanoTime();
     if (now - lastAccessed > timeoutSeconds * 1000000000) {
+      service.close();
       close();
     }
   }
@@ -117,27 +115,13 @@ public class UserServiceVertxProxyHandler extends ProxyHandler {
       }
       accessed();
       switch (action) {
-
-        case "findByName": {
-          service.findByName((java.lang.String)json.getValue("name"), res -> {
-            if (res.failed()) {
-              if (res.cause() instanceof ServiceException) {
-                msg.reply(res.cause());
-              } else {
-                msg.reply(new ServiceException(-1, res.cause().getMessage()));
-              }
-            } else {
-              msg.reply(res.result() == null ? null : res.result().toJson());
-            }
-         });
+        case "eva": {
+          service.eva((io.vertx.core.json.JsonObject)json.getValue("js"), createHandler(msg));
           break;
         }
-        case "create": {
-          service.create((java.lang.String)json.getValue("name"), (java.lang.String)json.getValue("password"), (java.lang.String)json.getValue("phone"), createHandler(msg));
-          break;
-        }
-        case "verify": {
-          service.verify((java.lang.String)json.getValue("name"), (java.lang.String)json.getValue("password"), createHandler(msg));
+        case "close": {
+          service.close();
+          close();
           break;
         }
         default: {

@@ -1,0 +1,26 @@
+<div class="container" ng-model="customer">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading"><span class="glyphicon glyphicon-customer"></span> Account Information</div>
+                <ul class="list-group list-group-details">
+                    <li class="list-group-item">
+                        <div class="panel-heading">Username: <span
+                                class="panel-heading">{{ customer.username }}</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span> Email: <span
+                                class="panel-heading">{{ customer.email || "None" }}</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="panel-heading">Phone: <span
+                                class="panel-heading">{{ customer.phone || "None" }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

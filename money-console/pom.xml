@@ -8,7 +8,7 @@
     <version>${revision}</version>
 
     <parent>
-        <groupId>org.money.sales</groupId>
+        <groupId>org.money.test.org.money.sales</groupId>
         <artifactId>money-project</artifactId>
         <version>${revision}</version>
     </parent>
@@ -21,19 +21,19 @@
         </dependency>
 
         <dependency>
-            <groupId>org.money.sales</groupId>
+            <groupId>org.money.test.org.money.sales</groupId>
             <artifactId>money-admin</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.sales</groupId>
+            <groupId>org.money.test.org.money.sales</groupId>
             <artifactId>money-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.sales</groupId>
+            <groupId>org.money.test.org.money.sales</groupId>
             <artifactId>money-basic</artifactId>
             <version>${revision}</version>
         </dependency>
@@ -43,6 +43,12 @@
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-auth-shiro</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -90,15 +96,7 @@
             <artifactId>vertx-web-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-junit5</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-        </dependency>
     </dependencies>
 
 

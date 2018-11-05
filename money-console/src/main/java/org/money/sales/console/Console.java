@@ -1,20 +1,20 @@
 package org.money.sales.console;
 
 
-import io.netty.util.internal.StringUtil;
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
-import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
-import io.vertx.reactivex.core.AbstractVerticle;
-import io.vertx.reactivex.ext.web.Router;
-import io.vertx.reactivex.ext.web.RoutingContext;
-import io.vertx.reactivex.ext.web.handler.*;
-import io.vertx.reactivex.ext.web.sstore.LocalSessionStore;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.*;
+import io.vertx.ext.web.sstore.LocalSessionStore;
 import lombok.extern.slf4j.Slf4j;
-import org.money.sales.api.reactivex.user.service.UserService;
+import org.money.sales.api.admin.model.Contact;
+import org.money.sales.console.handler.LoginHandler;
+import org.money.sales.console.handler.UserHandler;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,22 +24,44 @@ import java.util.Set;
 @Slf4j
 public class Console extends AbstractVerticle {
 
-    UserService us;
 
     @Override
     public void start(Future<Void> future) throws Exception {
 
 
-        us = UserService.proxy(vertx, new DeliveryOptions());
+        JsonObject js = new JsonObject();
+
+        js.put("number", "11111");
+        js.put("now", Instant.now());
+
+        System.out.println(js.encode());
+        System.out.println(Json.encode(new Contact()));
+        System.out.println(js.mapTo(Contact.class));
+
 
         Router router = Router.router(vertx);
+
         router.route().failureHandler(ErrorHandler.create(true));
 
+        Wrapper.wrap(router.route(), LoggerHandler.create(), TimeoutHandler.create(2000), CookieHandler.create(), SessionHandler.create(LocalSessionStore.create(vertx)));
 
-        router.route().handler(LoggerHandler.create());
-        router.route().handler(TimeoutHandler.create(2000, 767));
-        router.route().handler(CookieHandler.create());
-        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx, "money.session")));
+//        SimpleAccountRealm realm = new SimpleAccountRealm();
+//        realm.addAccount("admin", "admin", "admin");
+//        ShiroAuth authProvider = ShiroAuth.create(vertx, realm);
+//        router.route().handler(UserSessionHandler.create(authProvider));
+//
+//        router.route().handler(new AuthHandlerImpl(authProvider) {
+//            @Override
+//            public void parseCredentials(RoutingContext context, Handler<AsyncResult<JsonObject>> handler) {
+//                handler.handle(Future.succeededFuture());
+//            }
+//
+//            @Override
+//            public void authorize(User user, Handler<AsyncResult<Void>> handler) {
+//                handler.handle(Future.succeededFuture());
+//            }
+//        });
+
         router.route().handler(BodyHandler.create());
 
         Set<String> allowHeaders = new HashSet<>();
@@ -55,33 +77,11 @@ public class Console extends AbstractVerticle {
                 .allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST));
 
-        router.get("/wx").handler(rtx -> {
+        router.post("/admin/user/login")
+                .handler(LoginHandler.create(vertx));
 
-            String signature = rtx.request().getParam("signature");
-            String timestamp = rtx.request().getParam("timestamp");
-            String nonce = rtx.request().getParam("nonce");
-            String echostr = rtx.request().getParam("echostr");
-            String token = rtx.request().getParam("signature");
-
-            if (StringUtil.isNullOrEmpty(echostr)) {
-                rtx.response().end("满shi钱来");
-            } else
-                rtx.response().end(echostr);
-        });
-
-
-        router.route("/admin/*")
-                .produces("application/json").handler(RoutingContext::next);
-
-
-        router.route("/admin/user/login")
-                .handler(this::login);
-
-        router.get("/admin/user")
-                .handler(this::user);
-//
-//        router.route("/admin/user/info")
-//                .handler(this::user);
+        router.get("/admin/user/info")
+                .handler(UserHandler.create(vertx));
 
 
         router.route().handler(FaviconHandler.create());
@@ -91,35 +91,9 @@ public class Console extends AbstractVerticle {
 
         vertx.createHttpServer()
                 .requestHandler(router::accept)
-                .rxListen(8888)
-                .doOnSuccess(httpServer -> log.info("HTTP server started on port {}", httpServer.actualPort()))
-                .subscribe(httpServer -> future.complete(), future::fail);
-    }
-
-    private void login(RoutingContext rtx) {
-
-        JsonObject body = rtx.getBodyAsJson();
-        us.rxVerify(body.getString("name"), body.getString("password"))
-                .subscribe(() -> out(rtx, null), rtx::fail);
-
+                .listen(Integer.getInteger("port", 8080), ar -> future.handle(ar.map(httpServer -> null)));
 
     }
 
-    private void user(RoutingContext rtx) {
-
-        us.rxFindByName(rtx.request().getParam("name"))
-
-                .subscribe(user -> out(rtx, user), rtx::fail);
-
-
-    }
-
-
-    protected <T> void out(RoutingContext rtx, T data) {
-        if (data == null)
-            rtx.response().end();
-        else
-            rtx.response().end(Json.encode(data));
-    }
 
 }

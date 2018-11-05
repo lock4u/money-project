@@ -21,6 +21,11 @@ public class EvaluateImpl extends Supporter implements Evaluate {
     }
 
     @Override
+    protected String collection() {
+        return "evaluate";
+    }
+
+    @Override
     public void eva(JsonObject js, Handler<AsyncResult<JsonObject>> handler) {
 
     }

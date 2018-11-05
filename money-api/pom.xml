@@ -8,7 +8,7 @@
     <version>${revision}</version>
 
     <parent>
-        <groupId>org.money.sales</groupId>
+        <groupId>org.money.test.org.money.sales</groupId>
         <artifactId>money-project</artifactId>
         <version>${revision}</version>
     </parent>
@@ -36,6 +36,10 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -45,6 +49,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
 
         <dependency>

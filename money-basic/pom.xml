@@ -8,7 +8,7 @@
     <version>${revision}</version>
 
     <parent>
-        <groupId>org.money.sales</groupId>
+        <groupId>org.money.test.org.money.sales</groupId>
         <artifactId>money-project</artifactId>
         <version>${revision}</version>
     </parent>
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
         <dependency>
@@ -43,23 +48,15 @@
 
         <dependency>
             <groupId>io.vertx</groupId>
-            <artifactId>vertx-jdbc-client</artifactId>
+            <artifactId>vertx-mysql-postgresql-client</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-rx-java2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-mysql-postgresql-client</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>

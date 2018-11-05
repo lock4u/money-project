@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.money.sales</groupId>
+    <groupId>org.money.test.org.money.sales</groupId>
     <artifactId>money-project</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -24,6 +24,7 @@
         <junit-jupiter.version>5.2.0</junit-jupiter.version>
         <junit-platform-surefire-provider.version>1.2.0</junit-platform-surefire-provider.version>
         <junit-platform-launcher.version>1.2.0</junit-platform-launcher.version>
+        <assertj-core.version>3.8.0</assertj-core.version>
         <main.verticle/>
 
     </properties>
@@ -33,10 +34,11 @@
         <module>money-console</module>
         <module>money-basic</module>
         <module>money-api</module>
-        <module>token-microservice</module>
         <module>money-eva</module>
-        <module>money-bootstrap</module>
+        <module>money-starter</module>
+        <module>money-token</module>
         <module>money-admin</module>
+        <module>money-test</module>
     </modules>
 
     <dependencyManagement>
@@ -61,7 +63,6 @@
                 <artifactId>guava</artifactId>
                 <version>23.0</version>
             </dependency>
-
 
             <dependency>
                 <groupId>mysql</groupId>
@@ -118,18 +119,25 @@
                 <version>${vertx.version}</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>io.vertx</groupId>
-                <artifactId>vertx-junit5</artifactId>
+                <artifactId>vertx-unit</artifactId>
                 <version>${vertx.version}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
-                <groupId>org.junit.platform</groupId>
-                <artifactId>junit-platform-launcher</artifactId>
-                <version>${junit-platform-launcher.version}</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj-core.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -142,6 +150,22 @@
         <pluginManagement>
 
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <configuration>
+                        <followSymLinks>false</followSymLinks>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}/src/main/asciidoc</directory>
+                            </fileset>
+                            <fileset>
+                                <directory>${basedir}/src/main/generated</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
+                </plugin>
 
 
                 <plugin>
@@ -150,6 +174,35 @@
                         <encoding>${project.encoding}</encoding>
                     </configuration>
                 </plugin>
+
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.encoding}</encoding>
+                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>default-compile</id>
+                            <configuration>
+                                <annotationProcessors>
+                                    <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+                                    </annotationProcessor>
+                                    <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
+                                </annotationProcessors>
+                                <generatedSourcesDirectory>${basedir}/src/main/generated</generatedSourcesDirectory>
+                                <compilerArgs>
+                                    <arg>-Acodegen.output=${project.basedir}/src/main</arg>
+                                </compilerArgs>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -166,7 +219,7 @@
                                     <transformer
                                             implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                         <manifestEntries>
-                                            <Main-Class>org.money.sales.basic.Launcher</Main-Class>
+                                            <Main-Class>org.money.test.org.money.sales.basic.Launcher</Main-Class>
                                             <Main-Verticle>${main.verticle}</Main-Verticle>
                                         </manifestEntries>
                                     </transformer>
@@ -192,35 +245,6 @@
 
 
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>${project.encoding}</encoding>
-                    <useIncrementalCompilation>false</useIncrementalCompilation>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <annotationProcessors>
-                                <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
-                                </annotationProcessor>
-                                <annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
-                            </annotationProcessors>
-                            <generatedSourcesDirectory>src/main/generated</generatedSourcesDirectory>
-                            <compilerArgs>
-                                <arg>-AoutputDirectory=${project.basedir}/src/main</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-
-            </plugin>
-
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>1.0.0</version>
@@ -238,22 +262,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit-platform-surefire-provider.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>${junit-jupiter.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 </project>

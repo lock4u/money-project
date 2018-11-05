@@ -1,8 +1,9 @@
 package org.money.sales.basic.data;
 
+import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
 
@@ -19,17 +20,11 @@ public abstract class Supporter {
     @SuppressWarnings("unchecked")
     public Supporter(Vertx vertx, JsonObject config) {
 
-        JsonObject js = new JsonObject();
-        js.put("url", "jdbc:mysql://111.231.103.112:27017/MONEY?characterEncoding=UTF-8&useSSL=false");
-        js.put("user", "money");
-        js.put("password", "money1234");
-
-
         JsonObject c = new JsonObject();
         c.put("connection_string", "mongodb://111.231.103.112:27017");
         c.put("db_name", "test");
 
-        this.mongo = MongoClient.createNonShared(vertx, js);
+        this.mongo = MongoClient.createNonShared(vertx, c);
     }
 
 
@@ -42,11 +37,34 @@ public abstract class Supporter {
 
     protected Future<JsonObject> single(JsonObject args) {
         Future<JsonObject> future = Future.future();
-        mongo.findOne(collection(), args, args, future.completer());
+        single(args, future.completer());
         return future;
     }
 
+    protected void single(JsonObject args, Handler<AsyncResult<JsonObject>> handler) {
+        mongo.findOne(collection(), args, null, handler);
+    }
 
+    protected void create(JsonObject args, Handler<AsyncResult<JsonObject>> handler) {
+
+        Future<String> execute = Future.future();
+        mongo.insert(collection(), args, execute);
+        execute.compose(s -> {
+            Future<JsonObject> q = Future.future();
+            mongo.findOne(collection(), new JsonObject().put("_id", s), null, q.completer());
+            return q;
+        }).setHandler(handler);
+    }
+
+
+    protected void update(JsonObject args, Handler<AsyncResult<Void>> completer) {
+
+        mongo.save(collection(), args, ar -> completer.handle(ar.map(id -> null)));
+    }
+
+    protected void drop(JsonObject args, Handler<AsyncResult<Void>> handler) {
+        mongo.findOneAndDelete(collection(), args, ar -> handler.handle(ar.map(a -> (Void) null)));
+    }
 
     protected abstract String collection();
 

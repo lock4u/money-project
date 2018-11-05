@@ -1,11 +1,9 @@
 package org.money.sales.gateway;
 
-import io.netty.util.internal.StringUtil;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -13,15 +11,12 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
-import io.vertx.serviceproxy.ServiceProxyBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.money.sales.api.user.service.UserService;
+import org.money.sales.api.admin.service.EmployeeManager;
 import org.money.sales.gateway.model.Result;
 import org.money.sales.gateway.util.XML;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Lee on 2018/10/14.
@@ -31,7 +26,7 @@ import java.util.Set;
 public class Gateway extends AbstractVerticle {
 
 
-    UserService us;
+    EmployeeManager us;
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {

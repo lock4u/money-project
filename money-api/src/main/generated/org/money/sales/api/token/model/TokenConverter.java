@@ -27,33 +27,9 @@ import io.vertx.core.json.JsonArray;
 public class TokenConverter {
 
   public static void fromJson(JsonObject json, Token obj) {
-    if (json.getValue("access_token") instanceof String) {
-      obj.setAccess_token((String)json.getValue("access_token"));
-    }
-    if (json.getValue("errcode") instanceof String) {
-      obj.setErrcode((String)json.getValue("errcode"));
-    }
-    if (json.getValue("errmsg") instanceof String) {
-      obj.setErrmsg((String)json.getValue("errmsg"));
-    }
-    if (json.getValue("expire_in") instanceof String) {
-      obj.setExpire_in((String)json.getValue("expire_in"));
-    }
   }
 
   public static void toJson(Token obj, JsonObject json) {
-    if (obj.getAccess_token() != null) {
-      json.put("access_token", obj.getAccess_token());
-    }
-    if (obj.getErrcode() != null) {
-      json.put("errcode", obj.getErrcode());
-    }
-    if (obj.getErrmsg() != null) {
-      json.put("errmsg", obj.getErrmsg());
-    }
-    if (obj.getExpire_in() != null) {
-      json.put("expire_in", obj.getExpire_in());
-    }
     json.put("success", obj.isSuccess());
   }
 }

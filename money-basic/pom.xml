@@ -8,9 +8,10 @@
     <version>${revision}</version>
 
     <parent>
-        <groupId>org.money.test.org.money.sales</groupId>
-        <artifactId>money-project</artifactId>
+        <groupId>org.money.sales</groupId>
+        <artifactId>money-dependency</artifactId>
         <version>${revision}</version>
+        <relativePath>../money-dependency/pom.xml</relativePath>
     </parent>
 
     <dependencies>
@@ -18,7 +19,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -51,12 +51,10 @@
             <artifactId>vertx-mysql-postgresql-client</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-rx-java2</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>io.vertx</groupId>
@@ -64,11 +62,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-codetrans</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
     </dependencies>
 

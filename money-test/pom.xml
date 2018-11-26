@@ -7,30 +7,30 @@
     <artifactId>money-test</artifactId>
     <version>${revision}</version>
 
-
     <parent>
-        <groupId>org.money.test.org.money.sales</groupId>
-        <artifactId>money-project</artifactId>
+        <groupId>org.money.sales</groupId>
+        <artifactId>money-dependency</artifactId>
         <version>${revision}</version>
+        <relativePath>../money-dependency/pom.xml</relativePath>
     </parent>
 
 
     <dependencies>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-admin</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-api</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-basic</artifactId>
             <version>${revision}</version>
         </dependency>
@@ -40,22 +40,9 @@
             <artifactId>vertx-codegen</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-unit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
 

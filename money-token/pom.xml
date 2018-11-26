@@ -9,9 +9,10 @@
 
 
     <parent>
-        <groupId>org.money.test.org.money.sales</groupId>
-        <artifactId>money-project</artifactId>
+        <groupId>org.money.sales</groupId>
+        <artifactId>money-dependency</artifactId>
         <version>${revision}</version>
+        <relativePath>../money-dependency/pom.xml</relativePath>
     </parent>
 
 
@@ -39,7 +40,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-basic</artifactId>
             <version>${revision}</version>
         </dependency>

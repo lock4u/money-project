@@ -9,13 +9,14 @@
 
 
     <parent>
-        <groupId>org.money.test.org.money.sales</groupId>
-        <artifactId>money-project</artifactId>
+        <groupId>org.money.sales</groupId>
+        <artifactId>money-dependency</artifactId>
         <version>${revision}</version>
+        <relativePath>../money-dependency/pom.xml</relativePath>
     </parent>
 
     <properties>
-        <main.verticle>org.money.test.org.money.sales.Starter</main.verticle>
+        <main.verticle>org.money.sales.Starter</main.verticle>
     </properties>
 
     <dependencies>
@@ -26,13 +27,13 @@
         </dependency>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-gateway</artifactId>
             <version>${revision}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.money.test.org.money.sales</groupId>
+            <groupId>org.money.sales</groupId>
             <artifactId>money-admin</artifactId>
             <version>${revision}</version>
         </dependency>
